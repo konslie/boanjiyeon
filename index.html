@@ -424,6 +424,14 @@
     }
   }
 
+  // VS 배지 초기 위치
+  requestAnimationFrame(() => {
+    const battle = document.getElementById('battle');
+    const side1  = document.getElementById('side1');
+    const borderX = side1.getBoundingClientRect().right - battle.getBoundingClientRect().left;
+    document.querySelector('.vs-divider').style.left = borderX + 'px';
+  });
+
   // 배경 컨페티 상시 떨어짐
   spawnConfetti();
   setInterval(spawnConfetti, 3500);

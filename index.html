@@ -279,17 +279,14 @@
 
   function scheduleSave(idx) {
     clearTimeout(timers[idx]);
-    timers[idx] = setTimeout(() => flush(idx), 600);
-  }
-
-  async function flush(idx) {
-    if (pending[idx] === 0) return;
-    const amount = pending[idx];
-    pending[idx] = 0;
-    await apiFetch('/rest/v1/rpc/add_vote', {
-      method: 'POST',
-      body: JSON.stringify({ row_id: idx + 1, amount })
-    }).catch(() => {});
+    timers[idx] = setTimeout(() => {
+      const amount = pending[idx];
+      pending[idx] = 0;
+      apiFetch('/rest/v1/rpc/add_vote', {
+        method: 'POST',
+        body: JSON.stringify({ row_id: idx + 1, amount })
+      }).catch(() => {});
+    }, 600);
   }
 
   function doVote(id, e) {

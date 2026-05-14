@@ -111,8 +111,9 @@
 
     /* VS 배지 */
     .vs-divider {
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+      position: absolute; top: 50%; transform: translate(-50%,-50%);
       z-index: 10; pointer-events: none;
+      transition: left 0.7s cubic-bezier(0.16,1,0.3,1);
     }
     .vs-badge {
       background: #0a0a14; border: 2px solid rgba(255,255,255,0.2);
@@ -348,6 +349,10 @@
 
     document.getElementById('barLeft').style.width  = Math.min(100, counts[0] / GOAL * 100) + '%';
     document.getElementById('barRight').style.width = Math.min(100, counts[1] / GOAL * 100) + '%';
+
+    // VS 배지 위치를 flex 비율에 맞게 이동
+    const vsPos = flex1 / (flex1 + flex2) * 100;
+    document.querySelector('.vs-divider').style.left = vsPos + '%';
 
     const reached1 = counts[0] >= GOAL;
     const reached2 = counts[1] >= GOAL;

@@ -365,11 +365,27 @@
       const ov = document.createElement('div');
       ov.className = 'victory-overlay';
       ov.id = 'victoryOverlay';
+      const totalFinal = counts[0] + counts[1];
+      const pct1Final = totalFinal === 0 ? 50 : (counts[0] / totalFinal * 100).toFixed(1);
+      const pct2Final = totalFinal === 0 ? 50 : (counts[1] / totalFinal * 100).toFixed(1);
       ov.innerHTML = `
         <div class="victory-box">
           <span class="victory-emoji">${reached1 ? '🌐' : '🔒'}</span>
           <div class="victory-title">1만 표 달성!<br>${winnerMsg}</div>
           <div class="victory-sub">변지연의 운명이 결정됐습니다 👏</div>
+          <div style="margin-top:28px;display:flex;gap:24px;justify-content:center;font-size:15px;color:rgba(255,255,255,0.8);">
+            <div style="text-align:center;">
+              <div style="font-size:13px;opacity:.6;margin-bottom:4px;">🌐 인터넷</div>
+              <div style="font-size:22px;font-weight:900;color:white;">${counts[0].toLocaleString()}표</div>
+              <div style="font-size:13px;opacity:.7;">${pct1Final}%</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.15);"></div>
+            <div style="text-align:center;">
+              <div style="font-size:13px;opacity:.6;margin-bottom:4px;">🔒 보안</div>
+              <div style="font-size:22px;font-weight:900;color:white;">${counts[1].toLocaleString()}표</div>
+              <div style="font-size:13px;opacity:.7;">${pct2Final}%</div>
+            </div>
+          </div>
         </div>`;
       ov.onclick = () => ov.remove();
       document.body.appendChild(ov);

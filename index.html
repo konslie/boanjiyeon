@@ -350,15 +350,8 @@
     document.getElementById('barLeft').style.width  = Math.min(100, counts[0] / GOAL * 100) + '%';
     document.getElementById('barRight').style.width = Math.min(100, counts[1] / GOAL * 100) + '%';
 
-    // VS 배지를 side1의 오른쪽 끝(= 두 버튼의 경계선)에 정확히 맞춤
-    requestAnimationFrame(() => {
-      const battle = document.getElementById('battle');
-      const side1  = document.getElementById('side1');
-      const battleRect = battle.getBoundingClientRect();
-      const side1Rect  = side1.getBoundingClientRect();
-      const borderX = side1Rect.right - battleRect.left;
-      document.querySelector('.vs-divider').style.left = borderX + 'px';
-    });
+    // VS 배지 위치 업데이트
+    requestAnimationFrame(updateVsPos);
 
     const reached1 = counts[0] >= GOAL;
     const reached2 = counts[1] >= GOAL;
@@ -424,13 +417,14 @@
     }
   }
 
-  // VS 배지 초기 위치
-  requestAnimationFrame(() => {
+  // VS 배지 초기 위치 — 카드 등장 애니메이션(0.9s) 끝난 후 계산
+  function updateVsPos() {
     const battle = document.getElementById('battle');
     const side1  = document.getElementById('side1');
     const borderX = side1.getBoundingClientRect().right - battle.getBoundingClientRect().left;
     document.querySelector('.vs-divider').style.left = borderX + 'px';
-  });
+  }
+  setTimeout(updateVsPos, 950);
 
   // 배경 컨페티 상시 떨어짐
   spawnConfetti();

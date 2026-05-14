@@ -379,7 +379,7 @@
 
     document.getElementById('totalNote').textContent =
       total === 0 ? '아직 투표가 없어요! 첫 번째 투표자가 되어보세요 👀'
-                  : `총 ${total.toLocaleString()}표 / 목표 10,000표 · 새로고침하면 다른 사람 투표가 반영됩니다`;
+                  : `🌐 ${counts[0].toLocaleString()}표 · 🔒 ${counts[1].toLocaleString()}표 · 먼저 10,000표 달성한 쪽이 승리! · 새로고침하면 반영됩니다`;
 
     // 코멘트 (투표할 때만 바꿈)
     if (votedIdx !== null) {
